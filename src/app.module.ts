@@ -1,10 +1,21 @@
+// app.module.ts
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MongoDBService } from './function/mongodb.service';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [],
+  imports: [UsersModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, MongoDBService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private readonly mongoDBService: MongoDBService) {
+    this.initialize();
+  }
+
+  async initialize() {
+    await this.mongoDBService.connect();
+  }
+}
