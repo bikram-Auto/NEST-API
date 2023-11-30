@@ -11,11 +11,4 @@ import { UsersModule } from './users/users.module';
   providers: [AppService, MongoDBService],
 })
 export class AppModule {
-  constructor(private readonly mongoDBService: MongoDBService) {
-    this.initialize();
-  }
-
-  async initialize() {
-    await this.mongoDBService.connect();
-  }
 }
