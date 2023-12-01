@@ -12,10 +12,14 @@ export class UsersController {
    */
   @Post('/')
   async postUser(@Body() createUserDto: any): Promise<string> {
-    console.log("User created");
-    const res = await this.mongoDBService.create("users", createUserDto);
-    console.log(res);
-    return res;
+    try {
+      console.log("User created");
+      const res = await this.mongoDBService.create("users", createUserDto);
+      console.log(res);
+      return res;
+    } catch (error) {
+      throw error;
+    } 
   }
 
   /**
