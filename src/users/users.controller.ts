@@ -1,11 +1,10 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { UsersService } from './users.service';
 import { MongoDBService } from 'src/function/mongodb.service';
 
 
 @Controller('users')
 export class UsersController {
-  constructor(private userService: UsersService,private mongoDBService : MongoDBService) {}
+  constructor(private mongoDBService : MongoDBService) {}
 
   @Post('/')
   async postUser(@Body() createUserDto: any): Promise<string> {
