@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { MongoDBService } from 'src/function/mongodb.service';
 
-
+/**
+ * NestJS module for managing user-related functionality.
+ * This module encapsulates the users controller and MongoDB service.
+ */
 @Module({
+  // Controllers that handle HTTP requests related to users
   controllers: [UsersController],
-  providers: [UsersService,MongoDBService],
+
+  // Providers (services, repositories, etc.) used within the module
+  providers: [MongoDBService],
 })
-export class UsersModule {
-
-}
-
+export class UsersModule {}

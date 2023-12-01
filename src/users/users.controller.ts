@@ -1,20 +1,28 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { UsersService } from './users.service';
 import { MongoDBService } from 'src/function/mongodb.service';
-
 
 @Controller('users')
 export class UsersController {
-  constructor(private userService: UsersService,private mongoDBService : MongoDBService) {}
+  constructor(private mongoDBService: MongoDBService) {}
 
+  /**
+   * Handle POST request to create a new user.
+   * @param createUserDto - Data for creating a new user.
+   * @returns A promise that resolves with the result of the user creation operation.
+   */
   @Post('/')
   async postUser(@Body() createUserDto: any): Promise<string> {
-    console.log("created")
-    const res = await this.mongoDBService.create("users",createUserDto);
-    console.log(res)
-    return res
+    console.log("User created");
+    const res = await this.mongoDBService.create("users", createUserDto);
+    console.log(res);
+    return res;
   }
 
+  /**
+   * Handle GET request to retrieve user data.
+   * @param queryDto - Query parameters for filtering user data.
+   * @returns A promise that resolves with an array of user documents matching the query.
+   */
   @Get('/')
   async getUser(@Query() queryDto: any) {
     try {
@@ -26,9 +34,4 @@ export class UsersController {
       throw error;
     }
   }
-  
-
-  
-
-
 }
