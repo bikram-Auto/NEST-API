@@ -1,18 +1,15 @@
 // users.controller.ts
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { MongoDBService } from 'src/function/mongodb.service';
-// import { AuthService } from 'src/function/auth.service'; // Import AuthService
 
 @Controller('users')
 export class UsersController {
   /**
    * Constructs the UsersController instance.
    * @param mongoDBService - An instance of the MongoDBService to handle user-related database operations.
-   * @param authService - An instance of the AuthService to handle user authentication.
    */
   constructor(
     private mongoDBService: MongoDBService,
-    // private authService: AuthService, // Inject AuthService
   ) {}
 
   /**
