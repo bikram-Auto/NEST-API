@@ -1,7 +1,5 @@
-// users.controller.ts
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './users.dto';
 import { MongoDBService } from 'src/function/mongodb.service';
 
 
@@ -10,10 +8,27 @@ export class UsersController {
   constructor(private userService: UsersService,private mongoDBService : MongoDBService) {}
 
   @Post('/')
-  async postUser(@Body() createUserDto: CreateUserDto): Promise<string> {
-    console.log("ok")
-    const res = await this.mongoDBService.create("demo",createUserDto);
+  async postUser(@Body() createUserDto: any): Promise<string> {
+    console.log("created")
+    const res = await this.mongoDBService.create("users",createUserDto);
     console.log(res)
     return res
   }
+
+  @Get('/')
+  async getUser(@Query() queryDto: any) {
+    try {
+      const res = await this.mongoDBService.findAll("users", queryDto);
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+  
+
+  
+
+
 }

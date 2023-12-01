@@ -9,7 +9,7 @@ export class UsersService {
   constructor(private readonly mongoDBService: MongoDBService) {}
 
   async create(createUserDto: CreateUserDto): Promise<string> {
-    try { const collection = this.mongoDBService.getDatabase().collection('users');
+    try { const collection = this.mongoDBService.getDatabase().collection('testData');
     console.log("collection")
     
     await collection.insertOne(createUserDto);
@@ -22,7 +22,7 @@ export class UsersService {
     }
 
   async findAll(): Promise<any[]> {
-    const collection = this.mongoDBService.getDatabase().collection('users');
+    const collection = this.mongoDBService.getDatabase().collection('testData');
     return collection.find().toArray();
   }
 }
