@@ -12,7 +12,7 @@ export class MongoDBService implements OnApplicationShutdown {
    * Connects to the MongoDB server and sets up the database.
    */
   constructor() {
-    this.client = new MongoClient('mongodb://localhost:27017');
+    this.client = new MongoClient('mongodb+srv://bikramnanda:biki1996@cluster0.ejoawjh.mongodb.net');
     this.connect();
   }
 
