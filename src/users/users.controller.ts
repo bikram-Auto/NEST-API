@@ -43,12 +43,16 @@ export class UsersController {
       if (!name) {
         throw new Error('Name parameter is required for user retrieval.');
       }
-
       const query = { name }; // Construct the query object
       const users = await this.mongoDBService.findAll('users', query);
-      
+      if (users.length===0) {
+        return{
+          statusCode: 500,
+          message: "Name not found",
+        }
+      } 
       console.log(users);
-      return users;
+      return users;   
     } catch (error) {
       console.error(error);
       throw error;
