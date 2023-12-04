@@ -79,16 +79,13 @@ export class UsersController {
       console.log('Searching for user with id:', user_id);
       let userId = parseInt(user_id)
       const query = { user_id: userId }; // Construct the query object
-      console.log('Query:', query);
       const users = await this.mongoDBService.findAll('users', query);
-
       if (!users || users.length === 0) {
         return {
           statusCode: 404,
           message: "User not found with the specified ID",
         };
       }
-
       console.log('User found:', users);
       return users;
     } catch (error) {
