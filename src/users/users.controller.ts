@@ -22,10 +22,10 @@ export class UsersController {
    * @throws If an error occurs during the user creation process.
    */
   @Post('/')
-  async postUser(@Body() createUserDto: any): Promise<string> {
+  async postUser(@Body() body: any): Promise<string> {
     try {
       console.log("User created"); // Log a message indicating that a user is being created
-      const res = await this.mongoDBService.create("users", createUserDto); // Create a new user in the database
+      const res = await this.mongoDBService.create("users", body); // Create a new user in the database
       console.log(res); // Log the result of the user creation operation
       return res; // Return the result of the user creation operation
     } catch (error) {
