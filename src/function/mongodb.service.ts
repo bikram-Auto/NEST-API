@@ -88,4 +88,22 @@ export class MongoDBService implements OnApplicationShutdown {
       throw error;
     }
   }
+
+  /**
+   * Update a document in the specified collection based on the provided query.
+   * @param collectionName - Name of the collection.
+   * @param query - Query criteria for identifying the document to update.
+   * @param updateData - Data for updating the document.
+   * @returns A promise that resolves with the result of the update operation.
+   */
+  async update(collectionName: string, query: any, updateData: any) {
+    try {
+      const collection = this.db.collection(collectionName);
+      const updateResult = await collection.updateOne(query, { $set: updateData });
+      return updateResult;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
