@@ -6,15 +6,23 @@ import { MongoClient, Db } from 'mongodb';
 export class MongoDBService implements OnApplicationShutdown {
   private db: Db;
   private client: MongoClient;
+  private mongoURL = 'mongodb+srv://bikramnanda:biki1996@cluster0.ejoawjh.mongodb.net';
 
   /**
    * Constructs the MongoDBService instance and initializes the MongoDB client.
    * Connects to the MongoDB server and sets up the database.
    */
-  constructor() {
-    this.client = new MongoClient('mongodb+srv://bikramnanda:biki1996@cluster0.ejoawjh.mongodb.net');
+  constructor() { 
+    this.client = new MongoClient(this.mongoURL,{
+      tls: true,
+      minPoolSize: 2,
+      maxPoolSize: 10,
+    });
     this.connect();
+    this.client.close();
   }
+
+  
 
   /**
    * Establishes a connection to the MongoDB server and initializes the database.

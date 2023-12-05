@@ -75,7 +75,6 @@ export class UsersController {
       if (user_id === undefined || user_id === null) {
         throw new Error('id parameter is required for user retrieval.');
       }
-
       console.log('Searching for user with id:', user_id);
       let userId = parseInt(user_id)
       const query = { user_id: userId }; // Construct the query object
