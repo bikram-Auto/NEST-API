@@ -9,7 +9,7 @@ import {
   Put, 
   Query 
 } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiBody, ApiOperation } from '@nestjs/swagger';
 import { MongoDBService } from 'src/function/mongodb.service';
 
 /**
@@ -34,6 +34,7 @@ export class UsersController {
   @Post('/')
   @ApiOperation({summary: "Create new User."})
   @ApiOperation({description: "Handles POST request to create a new user."})
+  @ApiBody({type: [Body]})
   async postUser(@Body() body: any): Promise<string> {
     try {
       console.log("User created"); // Log a message indicating that a user is being created
@@ -83,25 +84,30 @@ export class UsersController {
    * @returns A promise that resolves with an array of user documents matching the query.
    * @throws If an error occurs during the user retrieval process or if the user_id is not provided.
    */
-  @Get(':id') // Example: http://localhost:3000/users/id?id={number}
+  @Get('/id') // Example: http://localhost:3000/users/id?id={number}
   @ApiOperation({summary: "Get user by Id Number."})
   @ApiOperation({description: "Handles GET request to retrieve user data based on the provided user_id."})
+  // @Get('/id') // Example: http://localhost:3000/users/id?id={number}
   async getUserById(@Query('id') user_id: string) {
     try {
       // Check if the id parameter is provided
       if (user_id === undefined || user_id === null) {
         throw new Error('id parameter is required for user retrieval.');
       }
+
       console.log('Searching for user with id:', user_id);
-      const userId = parseInt(user_id);
+      let userId = parseInt(user_id)
       const query = { user_id: userId }; // Construct the query object
+      console.log('Query:', query);
       const users = await this.mongoDBService.findAll('users', query);
+
       if (!users || users.length === 0) {
         return {
           statusCode: 404,
           message: "User not found with the specified ID",
         };
       }
+
       console.log('User found:', users);
       return users;
     } catch (error) {
@@ -120,6 +126,7 @@ export class UsersController {
   @Patch(':user_id')// Example: http://localhost:3000/users/{user_id}
   @ApiOperation({summary: "Change Date by User Id"})
   @ApiOperation({description: "Handles PATCH request to update the date of a user with the specified user_id."})
+  @ApiBody({type: [Date]})
   async updateUserDate(@Param('user_id') userId: string, @Body() updateDto: { date: string }) {
     try {
       const query = { user_id: parseInt(userId) };
