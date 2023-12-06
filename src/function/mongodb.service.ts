@@ -19,7 +19,7 @@ export class MongoDBService implements OnApplicationShutdown {
       maxPoolSize: 10,
     });
     this.connect();
-    this.client.close();
+    // this.client.close();
   }
 
   
@@ -83,6 +83,7 @@ export class MongoDBService implements OnApplicationShutdown {
       const collection = this.db.collection(collectionName);
       const result = await collection.find(query).toArray();
       return result;
+      
     } catch (error) {
       console.error(error);
       throw error;

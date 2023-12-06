@@ -1,5 +1,14 @@
 // users.controller.ts
-import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { 
+  Body, 
+  Controller, 
+  Get, 
+  Param, 
+  Patch, 
+  Post, 
+  Put, 
+  Query 
+} from '@nestjs/common';
 import { MongoDBService } from 'src/function/mongodb.service';
 
 /**
@@ -109,7 +118,28 @@ export class UsersController {
       const updateResult = await this.mongoDBService.update("users", query, updateDate);
 
       console.log(updateResult);
-      return { message: "User date updated successfully" };
+      return { message: "User date updated successfully " };
+    } catch (error) {
+      throw error;
+    } 
+  }
+
+  /**
+   * Handles PUT request to update user data based on the provided user_id.
+   * @param userId - The user_id parameter from the URL path.
+   * @param updateUserDto - Data for updating the user.
+   * @returns A promise that resolves with a message indicating the success of the update operation.
+   * @throws If an error occurs during the update process.
+   */
+  @Put(':user_id')// Example: http://localhost:3000/users/{user_id}
+  async updateUserById(@Param('user_id') userId: string, @Body() updateUserDto: any) {
+    try {
+      const query = { user_id: parseInt(userId) };
+
+      const updateResult = await this.mongoDBService.update("users", query, updateUserDto);
+
+      console.log(updateResult);
+      return { message: "User updated successfully" };
     } catch (error) {
       throw error;
     } 
