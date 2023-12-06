@@ -14,7 +14,7 @@ export class MongoDBService implements OnApplicationShutdown {
    */
   constructor() { 
     this.client = new MongoClient(this.mongoURL,{
-      tls: true,
+      // tls: true,
       minPoolSize: 2,
       maxPoolSize: 10,
     });
@@ -83,7 +83,7 @@ export class MongoDBService implements OnApplicationShutdown {
       const collection = this.db.collection(collectionName);
       const result = await collection.find(query).toArray();
       return result;
-      
+
     } catch (error) {
       console.error(error);
       throw error;
