@@ -12,7 +12,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('create user')
-    .setDescription('Create User and get and update user by data, name and date')
+    .setDescription('Create User, get and update user by name and date')
     .setVersion('1.0')
     .addTag('Users')
     .build();
