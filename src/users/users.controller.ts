@@ -9,6 +9,7 @@ import {
   Put, 
   Query 
 } from '@nestjs/common';
+import { ApiOperation } from '@nestjs/swagger';
 import { MongoDBService } from 'src/function/mongodb.service';
 
 /**
@@ -31,6 +32,8 @@ export class UsersController {
    * @throws If an error occurs during the user creation process.
    */
   @Post('/')
+  @ApiOperation({summary: "Create new User."})
+  @ApiOperation({description: "Handles POST request to create a new user."})
   async postUser(@Body() body: any): Promise<string> {
     try {
       console.log("User created"); // Log a message indicating that a user is being created
@@ -48,7 +51,9 @@ export class UsersController {
    * @returns A promise that resolves with an array of user documents matching the query.
    * @throws If an error occurs during the user retrieval process or if the name is not provided.
    */
-  @Get('/') // Example: http://localhost:3000/users/?name={name}
+  @Get(':name') // Example: http://localhost:3000/users/?name={name}
+  @ApiOperation({summary: "Get user by User Name."})
+  @ApiOperation({description: "Handles GET request to retrieve user data based on the provided name."})
   async getUser(@Query('name') name: string) {
     try {
       // Check if the name parameter is provided
@@ -71,13 +76,16 @@ export class UsersController {
     }
   }
 
+  
   /**
    * Handles GET request to retrieve user data based on the provided user_id.
    * @param user_id - The user_id parameter used to filter user data.
    * @returns A promise that resolves with an array of user documents matching the query.
    * @throws If an error occurs during the user retrieval process or if the user_id is not provided.
    */
-  @Get('/id') // Example: http://localhost:3000/users/id?id={number}
+  @Get(':id') // Example: http://localhost:3000/users/id?id={number}
+  @ApiOperation({summary: "Get user by Id Number."})
+  @ApiOperation({description: "Handles GET request to retrieve user data based on the provided user_id."})
   async getUserById(@Query('id') user_id: string) {
     try {
       // Check if the id parameter is provided
@@ -110,6 +118,8 @@ export class UsersController {
    * @throws If an error occurs during the update process.
    */
   @Patch(':user_id')// Example: http://localhost:3000/users/{user_id}
+  @ApiOperation({summary: "Change Date by User Id"})
+  @ApiOperation({description: "Handles PATCH request to update the date of a user with the specified user_id."})
   async updateUserDate(@Param('user_id') userId: string, @Body() updateDto: { date: string }) {
     try {
       const query = { user_id: parseInt(userId) };
@@ -132,6 +142,8 @@ export class UsersController {
    * @throws If an error occurs during the update process.
    */
   @Put(':user_id')// Example: http://localhost:3000/users/{user_id}
+  @ApiOperation({summary: "Update User by User Id"})
+  @ApiOperation({description: "Handles PUT request to update user data based on the provided user_id."})
   async updateUserById(@Param('user_id') userId: string, @Body() updateUserDto: any) {
     try {
       const query = { user_id: parseInt(userId) };
