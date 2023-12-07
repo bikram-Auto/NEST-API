@@ -52,7 +52,7 @@ export class UsersController {
    * @returns A promise that resolves with an array of user documents matching the query.
    * @throws If an error occurs during the user retrieval process or if the name is not provided.
    */
-  @Get(':name') // Example: http://localhost:3000/users/?name={name}
+  @Get('/name') // Example: http://localhost:3000/users/name?name={name}
   @ApiOperation({summary: "Get user by User Name."})
   @ApiOperation({description: "Handles GET request to retrieve user data based on the provided name."})
   async getUser(@Query('name') name: string) {

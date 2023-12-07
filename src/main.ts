@@ -20,7 +20,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   // Start the application by listening on a specified port (e.g., 3000)
-  await app.listen(3000);
+  await app.listen(3001);
 
   // Log a message indicating that the server has started
   console.log('Server started...');
